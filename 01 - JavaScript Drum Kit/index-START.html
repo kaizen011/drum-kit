@@ -60,9 +60,19 @@
 
 <script>
   window.addEventListener('keydown', function(e){
-    console.log(e.keyCode);
-  })
-
+    const music = document.querySelector(`audio[data-key="${e.keyCode}"]`);
+    const press = document.querySelector(`.key[data-key="${e.keyCode}"]`);
+    if (!music)return; //stop the function from running altogether
+    music.currentTime = 0; //rewind to the start
+    music.play();
+    console.log(press);
+    press.classList.add('playing');  
+  });
+  function removeTransition(e){
+    this.classList.remove('playing');
+  }
+  const keys = document.querySelectorAll('.key');
+  keys.forEach(key => key.addEventListener('transitionend', removeTransition));
 </script>
 
 
